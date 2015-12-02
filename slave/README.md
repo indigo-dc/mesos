@@ -2,8 +2,8 @@
 
 <pre>
 docker run -d \
--e MESOS_HOSTNAME=<IP> \
--e MESOS_IP=<IP> \
+-e MESOS_HOSTNAME=$IP \
+-e MESOS_IP=$IP \
 -e MESOS_MASTER=zk://$IP-node1:2181,$IP-node2:2181,$IP-node3:2181/mesos \
 -e MESOS_CONTAINERIZERS=docker,mesos \
 -e MESOS_EXECUTOR_REGISTRATION_TIMEOUT=5mins \
