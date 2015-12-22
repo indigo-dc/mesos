@@ -7,5 +7,6 @@ docker run -d \
 -e MESOS_IP=ip.address \
 -e MESOS_QUORUM=2 \
 -e MESOS_ZK=zk://node-1:2181,node-2:2181,node-3:2181/mesos \
+-e MESOS_LOG_DIR=/var/log \
 --name mesos-master --net host --restart always mesos-master
 </pre>
