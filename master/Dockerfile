@@ -6,9 +6,10 @@ FROM ubuntu:14.04
 #apt-get -y install --no-install-recommends mesos && \
 #rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get update && \ 
+RUN apt-get update && \
 curl https://raw.githubusercontent.com/indigo-dc/mesos/devel/dist/0.28/mesos-0.28.0-0.1.deb -o mesos-0.28.0-0.1.deb && \
-dpkg -i mesos-0.28.0-0.1.deb &&
+apt-get install -y --no-install-recommends openjdk-7-jre-headless && \
+gdebi --n mesos-0.28.0-0.1.deb &&
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #CMD ["/usr/sbin/mesos-master"]
