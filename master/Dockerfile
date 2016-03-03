@@ -7,8 +7,8 @@ FROM ubuntu:14.04
 #rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN apt-get update && \
+apt-get install -y --no-install-recommends curl openjdk-7-jre-headless && \
 curl https://raw.githubusercontent.com/indigo-dc/mesos/devel/dist/0.28/mesos-0.28.0-0.1.deb -o mesos-0.28.0-0.1.deb && \
-apt-get install -y --no-install-recommends openjdk-7-jre-headless && \
 gdebi --n mesos-0.28.0-0.1.deb && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
