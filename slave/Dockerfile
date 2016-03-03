@@ -1,17 +1,10 @@
 FROM ubuntu:14.04
 
-
 RUN apt-get update && \
-apt-get install -y curl apt-transport-https gdebi-core
+apt-get install -y --no-install-recommends curl libcurl3-nss apt-transport-https gdebi-core openjdk-7-jre-headless && \
+curl https://raw.githubusercontent.com/indigo-dc/mesos/devel/dist/0.28/mesos-0.28.0-0.1.deb -o mesos-0.28.0-0.1.deb && \
+gdebi --n mesos-0.28.0-0.1.deb 
 
-RUN curl https://raw.githubusercontent.com/indigo-dc/mesos/devel/dist/0.28/mesos-0.28.0-0.1.deb -o mesos-0.28.0-0.1.deb && \
-apt-get install -y --no-install-recommends openjdk-7-jre-headless && \
-gdebi --n mesos-0.28.0-0.1.deb
-
-#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
-#echo deb http://repos.mesosphere.io/ubuntu trusty main > /etc/apt/sources.list.d/mesosphere.list && \
-#apt-get update && \
-#apt-get -y install mesos
 
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
 echo deb https://apt.dockerproject.org/repo ubuntu-trusty main > /etc/apt/sources.list.d/docker.list && \
@@ -19,7 +12,6 @@ apt-get update && \
 apt-get install -y docker-engine && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#CMD ["/usr/sbin/mesos-slave"]
 CMD ["/usr/local/sbin/mesos-slave"]
 
 ENV MESOS_WORK_DIR /tmp/mesos
