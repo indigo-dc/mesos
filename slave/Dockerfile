@@ -2,11 +2,10 @@ FROM ubuntu:14.04
 
 
 RUN apt-get update && \
-apt-get install -y curl && \
-apt-get install -y apt-transport-https
+apt-get install -y curl apt-transport-https gdebi-core
 
 RUN curl https://raw.githubusercontent.com/indigo-dc/mesos/devel/dist/0.28/mesos-0.28.0-0.1.deb -o mesos-0.28.0-0.1.deb && \
-dpkg -i mesos-0.28.0-0.1.deb
+gdebi -y mesos-0.28.0-0.1.deb
 
 #RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
 #echo deb http://repos.mesosphere.io/ubuntu trusty main > /etc/apt/sources.list.d/mesosphere.list && \
