@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 RUN apt-get update && \
 apt-get install -y --no-install-recommends curl libcurl3-nss gdebi-core openjdk-7-jre-headless && \
-curl https://raw.githubusercontent.com/indigo-dc/mesos/devel/dist/0.28/mesos-0.28.0-0.1.deb -o mesos-0.28.0-0.1.deb && \
+curl https://raw.githubusercontent.com/indigo-dc/mesos/devel/dist/0.28/mesos-0.28.0-rc2.deb -o mesos-0.28.0-0.1.deb && \
 gdebi --n mesos-0.28.0-0.1.deb && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
