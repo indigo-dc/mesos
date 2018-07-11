@@ -1,23 +1,8 @@
-FROM ubuntu:14.04
+FROM dodasts/mesos-base:ubuntu
 
-
-RUN apt-get update && \
-apt-get install -y curl && \
-apt-get install -y apt-transport-https
-
-
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
-echo deb http://repos.mesosphere.io/ubuntu trusty main > /etc/apt/sources.list.d/mesosphere.list && \
-apt-get update && \
-apt-get -y install mesos
-
-RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
-echo deb https://apt.dockerproject.org/repo ubuntu-trusty main > /etc/apt/sources.list.d/docker.list && \
-apt-get update && \
-apt-get install -y docker-engine && \
-apt-get clean && rm -rf /var/lib/apt/lists/*
-
-CMD ["/usr/sbin/mesos-slave"]
+RUN curl https://packages.docker.com/1.12/apt/repo/pool/main/d/docker-engine/docker-engine_1.12.6~cs8-0~ubuntu-xenial_amd64.deb -o /tmp/docker-engine.deb \
+    && dpkg -i /tmp/docker-engine.deb \
+    && rm /tmp/docker-engine.deb
 
 ENV MESOS_WORK_DIR /tmp/mesos
 ENV MESOS_CONTAINERIZERS docker,mesos
@@ -27,7 +12,7 @@ ENV MESOS_EXECUTOR_REGISTRATION_TIMEOUT 5mins
 
 VOLUME /tmp/mesos
 
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+COPY entrypoint.sh /usr/sbin/
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/sbin/entrypoint.sh"]
+CMD ["/usr/sbin/mesos-slave"]
