@@ -1,12 +1,16 @@
 FROM dodasts/mesos-base:ubuntu
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends wget \
+    && apt-get install -y --no-install-recommends apt-transport-https \
+        ca-certificates \
+        curl \
+        software-properties-common \
+    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
+    && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends docker-ce \
     && apt-get autoremove \
-    && apt-get clean \
-    && wget https://packages.docker.com/1.12/apt/repo/pool/main/d/docker-engine/docker-engine_1.12.6~cs8-0~ubuntu-xenial_amd64.deb -o /tmp/docker-engine.deb \
-    && dpkg -i /tmp/docker-engine.deb \
-    && rm /tmp/docker-engine.deb
+    && apt-get clean
 
 ENV MESOS_WORK_DIR /tmp/mesos
 ENV MESOS_CONTAINERIZERS docker,mesos
