@@ -1,18 +1,15 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
-
-RUN apt-get update && \
-apt-get install -y curl && \
-apt-get install -y apt-transport-https
-
+ARG mesos_version
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
-echo deb http://repos.mesosphere.io/ubuntu trusty main > /etc/apt/sources.list.d/mesosphere.list && \
+echo deb http://repos.mesosphere.com/ubuntu xenial main > /etc/apt/sources.list.d/mesosphere.list && \
 apt-get update && \
-apt-get -y install mesos
+apt-get -y install --no-install-recommends openjdk-8-jre-headless mesos=${mesos_version} && \
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
-echo deb https://apt.dockerproject.org/repo ubuntu-trusty main > /etc/apt/sources.list.d/docker.list && \
+echo deb https://apt.dockerproject.org/repo ubuntu-xenial main > /etc/apt/sources.list.d/docker.list && \
 apt-get update && \
 apt-get install -y docker-engine && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -31,3 +28,7 @@ COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
+
+
+
