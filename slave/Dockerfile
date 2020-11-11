@@ -8,10 +8,10 @@ apt-get update && \
 apt-get -y install --no-install-recommends openjdk-8-jre-headless mesos=${mesos_version} && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
-echo deb https://apt.dockerproject.org/repo ubuntu-xenial main > /etc/apt/sources.list.d/docker.list && \
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" > /etc/apt/sources.list.d/docker.list && \
 apt-get update && \
-apt-get install -y docker-engine && \
+apt-get install -y docker-ce docker-ce-cli containerd.io && \
 apt-get clean && rm -rf /var/lib/apt/lists/*
 
 CMD ["/usr/sbin/mesos-slave"]
