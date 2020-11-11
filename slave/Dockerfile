@@ -5,7 +5,7 @@ ARG mesos_version
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
 echo deb http://repos.mesosphere.com/ubuntu xenial main > /etc/apt/sources.list.d/mesosphere.list && \
 apt-get update && \
-apt-get -y install --no-install-recommends openjdk-8-jre-headless mesos=${mesos_version} && \
+apt-get -y install --no-install-recommends curl openjdk-8-jre-headless mesos=${mesos_version} && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
