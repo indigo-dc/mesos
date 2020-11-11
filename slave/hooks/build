@@ -1,0 +1,2 @@
+#!/bin/bash
+docker build --build-arg mesos_version=$mesos_version -t $IMAGE_NAME .
