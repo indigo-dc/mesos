@@ -8,7 +8,7 @@ apt-get update && \
 apt-get -y install --no-install-recommends curl openjdk-8-jre-headless mesos=${mesos_version} && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" > /etc/apt/sources.list.d/docker.list && \
 apt-get update && \
 apt-get install -y docker-ce docker-ce-cli containerd.io && \
